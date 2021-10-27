@@ -1,0 +1,6 @@
+﻿  LAOr3.cpp
+C:\Users\SuperStudent\source\repos\Nowy folder\LAOr3\LAOr3\LAOr3.cpp(56,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\SuperStudent\source\repos\Nowy folder\LAOr3\LAOr3\LAOr3.cpp(57,11): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\SuperStudent\source\repos\Nowy folder\LAOr3\LAOr3\LAOr3.cpp(64,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\SuperStudent\source\repos\Nowy folder\LAOr3\LAOr3\LAOr3.cpp(69,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  LAOr3.vcxproj -> C:\Users\SuperStudent\source\repos\Nowy folder\LAOr3\Debug\LAOr3.exe
