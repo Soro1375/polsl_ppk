@@ -2,17 +2,17 @@
 #include <string>
 #include <fstream>
 using namespace std;
-void code(){
+void code(const string In,const string Out,const string Key){
 	ifstream czysty;//czysty tekt
 	ofstream zaszyfrowany;
 	ifstream klucz;
-	czysty.open("clear.txt");
+	czysty.open(In.c_str());
 	string clr;
 	while(czysty){
 		czysty>>clr;
 	}
 	czysty.close();
-	klucz.open("key.txt");
+	klucz.open(Key.c_str());
 	string k;
 	while(klucz){
 		klucz>>k;
@@ -47,21 +47,21 @@ void code(){
 		}	
 	}
 	//cout<<endl<<coded<<endl;
-	zaszyfrowany.open("coded.txt");
+	zaszyfrowany.open(Out.c_str());
 	zaszyfrowany<<coded;
 	zaszyfrowany.close();
 }
-void decode(){																			//odwrotnie jak code
+void decode(const string In,const string Out,const string Key){																			//odwrotnie jak code
 	ofstream czysty;
 	ifstream zaszyfrowany;
 	ifstream klucz;
-	zaszyfrowany.open("coded.txt");
+	zaszyfrowany.open(In.c_str());
 	string coded;
 	while(zaszyfrowany){
 		zaszyfrowany>>coded;
 	}
 	zaszyfrowany.close();
-	klucz.open("key.txt");
+	klucz.open(Key.c_str());
 	string k;
 	while(klucz){
 		klucz>>k;
@@ -95,30 +95,30 @@ void decode(){																			//odwrotnie jak code
 			clr+=tmp;
 		}	
 	}
-	czysty.open("clear.txt");
+	czysty.open(Out.c_str());
 	//cout<<endl<<endl<<clr<<endl;
 	czysty<<clr;
 	czysty.close();
 }
-void GetKey(){
+void GetKey(const string In,const string Out,const string Key){
 	ifstream czysty;//czysty tekt
 	ifstream zaszyfrowany;
 	ofstream klucz;
-	czysty.open("clear.txt");
+	czysty.open(In.c_str());
 	string clr;
 	while(czysty){
 		czysty>>clr;
 	}
 	czysty.close();
-	zaszyfrowany.open("coded");
+	zaszyfrowany.open(Out.c_str());
 	string coded;
 	while(zaszyfrowany){
 		zaszyfrowany>>coded;
 	}
 	zaszyfrowany.close();
-	klucz.open("key.txt");
-	clr="KOTY";
-	coded="RODF";
+	klucz.open(Key.c_str());
+	//clr="KOTY";
+	//coded="RODF";
 	string k;
 	for(int i=0;i<clr.length();i++){
 		char tmp=(coded[i]-clr[i]);
@@ -131,19 +131,50 @@ void GetKey(){
 	klucz<<k;
 	klucz.close();
 }
-int main(int argc,      // Number of strings in array argv
-          char *argv[],   // Array of command-line argument strings
-          char *envp[] ) {
-	string q=argv[1];
-	if(q=="--en"){
-		code();
-	}else if(q=="--de"){
-		decode();
-	}else if(q=="--br"){
-		GetKey();
+void rem(const int r,const string i,const string o,const string k){
+	switch(r){
+		case 1:
+			code(i,o,k);
+			//cout<<"code"<<endl;
+		break;
+		case 2:
+			decode(i,o,k);
+			//cout<<"decode"<<endl;
+		break;
+		case 3:
+			GetKey(i,o,k);
+			//cout<<"break"<<endl;
+		break;
 	}
-	cout<<endl<<"WORKS"<<endl<<argv[1]<<endl<<q<<endl;
-	system("pause");
+}
+int main(int argc,      								//dlugosc ciagu parametrow
+    	char *argv[],   								//ciag parametrow
+        char *envp[] ) {
+        string IN,OUT,KEY;//plik wejscia,plik wyjscia,plik klucz
+        int remot;//sterowanie wyborem podprogramu
+	for(int i=1;i<argc;i++){
+		if(string(argv[i])=="-i"){
+			IN=argv[i+1];
+		}
+		if(string(argv[i])=="-o"){
+			OUT=argv[i+1];
+		}
+		if(string(argv[i])=="-k"){
+			KEY=argv[i+1];
+		}
+		if(string(argv[i])=="--en"){
+			remot=1;
+		}
+		if(string(argv[i])=="--de"){
+			remot=2;
+		}
+		if(string(argv[i])=="--br"){
+			remot=3;
+		}
+	}
+	rem(remot,IN,OUT,KEY);
+	/*cout<<"in=	"<<IN<<endl<<"out=	"<<OUT<<endl<<"key=	"<<KEY<<endl<<"option=	"<<remot<<endl;
+	system("pause");*/
 	return 0;
 }
 
