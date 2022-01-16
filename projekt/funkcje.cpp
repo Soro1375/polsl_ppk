@@ -26,13 +26,13 @@ void code(const string In,const string Out,const string Key,const short de){
 		char tmp;
 		if((In[i]<='z'&&In[i]>='a')||(In[i]<='Z'&&In[i]>='A')){													//dla alfabetu malego
 			if(Key[i%Key.length()]<='z'&&Key[i%Key.length()]>='a'){
-				tmp=In[i]+(Key[i%Key.length()]*de)-('a'*de);
+				tmp=In[i]-(Key[i%Key.length()]*de)+('a'*de);
 				
 			}else if(Key[i%Key.length()]<='Z'&&Key[i%Key.length()]>='A'){
-				tmp=In[i]+(Key[i%Key.length()]*de)-('A'*de);
+				tmp=In[i]-(Key[i%Key.length()]*de)+('A'*de);
 			}
 			if(!(tmp<='z'&&tmp>='a')&&!(tmp<='Z'&&tmp>='A')){													//jezeli znak spoza alfabetu wroc do alfabetu
-				tmp-=26*de;
+				tmp+=26*de;
 			}
 			coded+=tmp;
 		}
